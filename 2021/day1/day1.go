@@ -2,23 +2,8 @@ package main
 
 import (
 	"fmt"
-    "io/ioutil"
-    "strings"
-    "strconv"
+    "advent-of-code/tools"
 )
-
-func read(filename string) []int{
-    n, _ := ioutil.ReadFile(filename)
-    s := strings.Trim(string(n), "\n")
-    inputs := strings.Split(s, "\n")
-
-    numbers := []int{}
-    for _, i := range inputs{
-        num, _ := strconv.Atoi(i)
-        numbers = append(numbers, num)
-    }
-    return numbers
-}
 
 func part1(data []int) int{
     inc := 0
@@ -44,7 +29,7 @@ func part2(data []int) int{
 }
 
 func main() {
-    data := read("day1a.txt")
+    data := tools.Read("day1a.txt")
     fmt.Println(part1(data))
     fmt.Println(part2(data))
 }
