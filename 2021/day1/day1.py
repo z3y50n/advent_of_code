@@ -17,7 +17,6 @@ t_data = [
     263,
 ]
 data = read_data("day1a.txt")
-print(len(data))
 
 # PART 1
 def part1(data):
@@ -30,12 +29,7 @@ print(part1(data))
 
 # PART 2
 def part2(data):
-    inc = 0
-    for i in range(1, len(data) - 2):
-        m1 = sum(data[i - 1 : i + 2])
-        m2 = sum(data[i : i + 3])
-        if m2 > m1:
-            inc += 1
+    inc = sum(data[i+3] > data[i] for i in range(0, len(data)-3))
     return inc
 
 
