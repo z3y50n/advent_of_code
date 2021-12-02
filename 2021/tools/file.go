@@ -18,3 +18,11 @@ func Read(filename string) []int{
     }
     return numbers
 }
+
+func ReadS(filename string) []string{
+    n, _ := ioutil.ReadFile(filename)
+    s := strings.Trim(string(n), "\n")
+    inputs := strings.Split(s, "\n")
+
+    return inputs
+}
