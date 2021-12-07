@@ -6,10 +6,10 @@ import (
     "strconv"
 )
 
-func Read(filename string) []int{
+func Read(filename string, delim string) []int{
     n, _ := ioutil.ReadFile(filename)
     s := strings.Trim(string(n), "\n")
-    inputs := strings.Split(s, "\n")
+    inputs := strings.Split(s, delim)
 
     numbers := []int{}
     for _, i := range inputs{

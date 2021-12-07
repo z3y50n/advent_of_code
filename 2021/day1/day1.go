@@ -27,7 +27,7 @@ func part2(data []int) int{
 }
 
 func main() {
-    data := tools.Read("day1a.txt")
+    data := tools.Read("day1a.txt", "\n")
     fmt.Println(part1(data))
     fmt.Println(part2(data))
 }
