@@ -9,22 +9,32 @@ t_heightmap = read_data("test_input.txt")
 heightmap = read_data("input.txt")
 
 
-# PART 1
-def find_nbrs(heightmap, i, j):
+def find_nbrs(heightmap, i, j, mode="nbrs"):
     n = len(heightmap)
     m = len(heightmap[0])
     nbrs = []
+    nbr_pos = []
     if i > 0:
         nbrs.append(heightmap[i - 1][j])
+        nbr_pos.append((i - 1, j))
     if i < n - 1:
         nbrs.append(heightmap[i + 1][j])
+        nbr_pos.append((i + 1, j))
     if j > 0:
         nbrs.append(heightmap[i][j - 1])
+        nbr_pos.append((i, j - 1))
     if j < m - 1:
         nbrs.append(heightmap[i][j + 1])
-    return nbrs
+        nbr_pos.append((i, j + 1))
+    if mode == "nbrs":
+        return nbrs
+    elif mode == "pos":
+        return nbr_pos
+    else:
+        raise Exception("Mode is either 'nbrs' or 'pos'")
 
 
+# PART 1
 def part1(heightmap):
     n = len(heightmap)
     m = len(heightmap[0])
@@ -47,26 +57,11 @@ t_lowpoints = part1(t_heightmap)[1]
 lowpoints = part1(heightmap)[1]
 
 # PART 2 (Using DFS)
-def find_nbr_pos(heightmap, i, j):
-    n = len(heightmap)
-    m = len(heightmap[0])
-    nbrs = []
-    if i > 0:
-        nbrs.append((i - 1, j))
-    if i < n - 1:
-        nbrs.append((i + 1, j))
-    if j > 0:
-        nbrs.append((i, j - 1))
-    if j < m - 1:
-        nbrs.append((i, j + 1))
-    return nbrs
-
-
 def dfs(heightmap, i, j):
     s = 0
     val = heightmap[i][j]
     heightmap[i][j] = -1
-    for x, y in find_nbr_pos(heightmap, i, j):
+    for x, y in find_nbrs(heightmap, i, j, "pos"):
         if heightmap[x][y] == -1:
             continue
         if heightmap[x][y] > val and heightmap[x][y] != 9:
