@@ -6,21 +6,10 @@ def read_data(filename):
     outputs = [l.split(" | ")[1].split(" ") for l in data]
     return patterns, outputs
 
-DIGITS = {
-    0: "abcefg",
-    1: "cf",
-    2: "acdeg",
-    3: "acdfg",
-    4: "bcdf",
-    5: "abdfg",
-    6: "abdefg",
-    7: "acf",
-    8: "abcdefg",
-    9: "abcdfg"
-}
 
 t_patterns, t_outputs = read_data("test_input.txt")
 patterns, outputs = read_data("input.txt")
+
 
 def part1(outputs):
     ret = 0
@@ -30,6 +19,7 @@ def part1(outputs):
                 ret += 1
     return ret
 
+
 assert part1(t_outputs) == 26
 print(part1(outputs))
 
@@ -37,15 +27,17 @@ print(part1(outputs))
 def remaining_digits(n1, n2):
     return list(set(n1).symmetric_difference(set(n2)))
 
+
 def find_number(numbers, d):
     for i, n in enumerate(numbers):
         if len(remaining_digits(n, d)) == 0:
             return i
 
+
 def part2(patterns, outputs):
     s = 0
     for pattern, output in zip(patterns, outputs):
-        numbers = [""]*10
+        numbers = [""] * 10
         p = sorted(pattern, key=len)
         numbers[1] = p[0]
         numbers[7] = p[1]
@@ -60,7 +52,7 @@ def part2(patterns, outputs):
                 else:
                     numbers[2] = ttf
         for zsn in p[6:9]:
-            if len(remaining_digits(zsn, numbers[3]+numbers[4]+numbers[7])) == 0:
+            if len(remaining_digits(zsn, numbers[3] + numbers[4] + numbers[7])) == 0:
                 numbers[9] = zsn
             else:
                 if len(remaining_digits(zsn, numbers[5])) == 1:
@@ -68,8 +60,9 @@ def part2(patterns, outputs):
                 else:
                     numbers[0] = zsn
         for i, d in enumerate(output):
-            s += find_number(numbers, d) * 10 ** (len(output)-1-i)
+            s += find_number(numbers, d) * 10 ** (len(output) - 1 - i)
     return s
+
 
 assert part2(t_patterns, t_outputs) == 61229
 print(part2(patterns, outputs))
