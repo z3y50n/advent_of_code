@@ -1,4 +1,3 @@
-from collections import deque
 import networkx as nx
 
 G1 = nx.read_edgelist("test_input1.txt", delimiter="-")
