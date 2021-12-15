@@ -1,18 +1,9 @@
 import numpy as np
 import networkx as nx
-import time
 
 
-def read_file(filename):
-    with open(filename, "r") as f:
-        rows = f.read().strip().split("\n")
-
-    cavern = [list(map(int, list(row))) for row in rows]
-    return np.asarray(cavern)
-
-
-t_cavern = read_file("test_input.txt")
-cavern = read_file("input.txt")
+t_cavern = np.genfromtxt("test_input.txt", dtype=int, delimiter=1)
+cavern = np.genfromtxt("input.txt", dtype=int, delimiter=1)
 
 
 def G_from_array(cavern):
@@ -31,9 +22,7 @@ def G_from_array(cavern):
 
 
 def solve(cavern):
-    start = time.time()
     G = G_from_array(cavern)
-    print("Time", time.time() - start)
     target = (cavern.shape[0] - 1, cavern.shape[1] - 1)
     return nx.shortest_path_length(G, source=(0, 0), target=target, weight="weight")
 
