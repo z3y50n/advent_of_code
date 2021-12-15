@@ -1,5 +1,6 @@
 import numpy as np
 import networkx as nx
+import time
 
 
 def read_file(filename):
@@ -19,18 +20,20 @@ def G_from_array(cavern):
     for i in range(cavern.shape[0]):
         for j in range(cavern.shape[1]):
             if j != 0:
-                G.add_weighted_edges_from([((i, j), (i, j - 1), cavern[i, j - 1])])
+                G.add_edge((i, j), (i, j - 1), weight=cavern[i, j - 1])
             if i != 0:
-                G.add_weighted_edges_from([((i, j), (i - 1, j), cavern[i - 1, j])])
+                G.add_edge((i, j), (i - 1, j), weight=cavern[i - 1, j])
             if j != cavern.shape[1] - 1:
-                G.add_weighted_edges_from([((i, j), (i, j + 1), cavern[i, j + 1])])
+                G.add_edge((i, j), (i, j + 1), weight=cavern[i, j + 1])
             if i != cavern.shape[0] - 1:
-                G.add_weighted_edges_from([((i, j), (i + 1, j), cavern[i + 1, j])])
+                G.add_edge((i, j), (i + 1, j), weight=cavern[i + 1, j])
     return G
 
 
 def solve(cavern):
+    start = time.time()
     G = G_from_array(cavern)
+    print("Time", time.time() - start)
     target = (cavern.shape[0] - 1, cavern.shape[1] - 1)
     return nx.shortest_path_length(G, source=(0, 0), target=target, weight="weight")
 
