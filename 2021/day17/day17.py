@@ -38,8 +38,9 @@ def solve(target):
     """Try for a bunch of init velocities"""
     ys = []
     for v0_x in range(0, target["x"][1] + 1):
-        # Randomly choose 130 :P
-        for v0_y in range(target["y"][0], 130):
+        # max v0_y can be up to -y_target[0] because it will
+        # always pass from 0
+        for v0_y in range(target["y"][0], -target["y"][0]):
             y = throw(v0_x, v0_y, target)
             if y is not None:
                 ys.append(y)
