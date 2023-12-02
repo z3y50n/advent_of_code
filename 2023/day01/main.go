@@ -68,9 +68,9 @@ func part2(lines []string) int {
 }
 
 func main() {
-	test_lines1 := utils.ReadS("data/01_test.txt")
-	test_lines2 := utils.ReadS("data/01_test2.txt")
-	lines := utils.ReadS("data/01.txt")
+	test_lines1 := utils.ReadS("01_test.txt")
+	test_lines2 := utils.ReadS("01_test2.txt")
+	lines := utils.ReadS("01.txt")
 
 	// Part 1
 	res1t := part1(test_lines1)
