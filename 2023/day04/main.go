@@ -18,7 +18,7 @@ func part1(cards []string) int {
 		ownNumbers := strings.Fields(numbers[1])
 
 		for _, n := range ownNumbers {
-			if utils.ContainsString(winningNumbers, n) {
+			if utils.Contains(winningNumbers, n) {
 				matches++
 			}
 		}
@@ -42,7 +42,7 @@ func part2(cards []string) int {
 		ownNumbers := strings.Fields(numbers[1])
 
 		for _, n := range ownNumbers {
-			if utils.ContainsString(winningNumbers, n) {
+			if utils.Contains(winningNumbers, n) {
 				matches++
 			}
 		}
