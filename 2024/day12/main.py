@@ -23,13 +23,13 @@ def part2(garden: list[str]) -> int:
 def find_regions(garden: list[str]) -> list[list[Pos]]:
     H = len(garden)
     W = len(garden[0])
-    regions: list[list[Pos]] = []
     visited: set[Pos] = set()
-    for i in range(H):
-        for j in range(W):
-            if (i, j) not in visited:
-                regions.append(find_region(garden, (i, j), visited))
-    return regions
+    return [
+        find_region(garden, (i, j), visited)
+        for i in range(H)
+        for j in range(W)
+        if (i, j) not in visited
+    ]
 
 
 def find_region(garden: list[str], p: Pos, visited: set[Pos]) -> list[Pos]:
@@ -50,14 +50,7 @@ def find_region(garden: list[str], p: Pos, visited: set[Pos]) -> list[Pos]:
 
 
 def calc_perimeter(region: list[Pos]) -> int:
-    perimeter = 0
-    for pos in region:
-        plus = 4
-        for nbr in nbrs(pos):
-            if nbr in region:
-                plus -= 1
-        perimeter += plus
-    return perimeter
+    return sum(1 for pos in region for nbr in nbrs(pos) if nbr not in region)
 
 
 def nbrs(p):
@@ -89,17 +82,16 @@ def calc_sides(region: list[Pos]) -> int:
             n_sides += 1
             dir = dirs.pop(0)
             # Clockwise
-            current = nbrs(p)[(dir+1) % 4]
+            current = nbrs(p)[(dir + 1) % 4]
             while dir in perimeter_points[current]:
                 perimeter_points[current].remove(dir)
-                current = nbrs(current)[(dir+1) % 4]
+                current = nbrs(current)[(dir + 1) % 4]
             # Counter-clockwise
-            current = nbrs(p)[(dir+3) % 4]
+            current = nbrs(p)[(dir + 3) % 4]
             while dir in perimeter_points[current]:
                 perimeter_points[current].remove(dir)
-                current = nbrs(current)[(dir-1) % 4]
+                current = nbrs(current)[(dir - 1) % 4]
     return n_sides
-
 
 
 if __name__ == "__main__":
