@@ -26,32 +26,32 @@ def read_data(filename: str):
 
 def part1(machines: list[dict[str, int]]) -> int:
     ret = 0
-    for m in enumerate(machines):
+    for m in machines:
         a1, a2 = m["a1"], m["a2"]
         b1, b2 = m["b1"], m["b2"]
         c1, c2 = m["c1"], m["c2"]
         X = (b2 * c1 - b1 * c2) / (b2 * a1 - b1 * a2)
-        Y = (a1 * (b2 * c1 - b1 * c2) - c1 * (b2 * a1 - b1 * a2)) / (
+        Y = (c1 * (b2 * a1 - b1 * a2) - a1 * (b2 * c1 - b1 * c2) ) / (
             b1 * (b2 * a1 - b1 * a2)
         )
         if X.is_integer() and Y.is_integer():
-            ret += int(X*3 - Y)
+            ret += int(X*3 + Y)
     return ret
 
 
 def part2(machines: list[dict[str, int]]) -> int:
     ret = 0
-    for m in enumerate(machines):
+    for m in machines:
         a1, a2 = m["a1"], m["a2"]
         b1, b2 = m["b1"], m["b2"]
         c1, c2 = m["c1"] + 10000000000000, m["c2"] + 10000000000000
         X = (b2 * c1 - b1 * c2) / (b2 * a1 - b1 * a2)
-        Y = (a1 * (b2 * c1 - b1 * c2) - c1 * (b2 * a1 - b1 * a2)) / (
+        Y = (c1 * (b2 * a1 - b1 * a2) - a1 * (b2 * c1 - b1 * c2) ) / (
             b1 * (b2 * a1 - b1 * a2)
         )
         if X.is_integer() and Y.is_integer():
             # Y is minus due to chat gpt not knowing math
-            ret += int(X*3 - Y)
+            ret += int(X*3 + Y)
     return ret
 
 
